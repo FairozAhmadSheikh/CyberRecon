@@ -22,4 +22,15 @@
         <button type="submit" class="btn btn-primary w-100">Run Scan</button>
     </form>
 
-    
+    {% if result %}
+        <h5 class="text-success">✔ Open Ports:</h5>
+        <ul>
+            {% for port in result %}
+                <li>Port {{ port }} is open</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+
+</body>
+</html>
