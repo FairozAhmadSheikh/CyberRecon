@@ -15,20 +15,29 @@
         </div>
         <div class="mb-3">
             <select name="scan_type" class="form-select" required>
-                <option value="port">Port Scan</option>
-                <!-- more to come -->
+                <option value="port" {% if scan_type == 'port' %}selected{% endif %}>Port Scan</option>
+                <option value="subdomain" {% if scan_type == 'subdomain' %}selected{% endif %}>Subdomain Enumeration</option>
             </select>
         </div>
         <button type="submit" class="btn btn-primary w-100">Run Scan</button>
     </form>
 
     {% if result %}
-        <h5 class="text-success">✔ Open Ports:</h5>
-        <ul>
-            {% for port in result %}
-                <li>Port {{ port }} is open</li>
-            {% endfor %}
-        </ul>
+        {% if scan_type == 'port' %}
+            <h5 class="text-success">✔ Open Ports:</h5>
+            <ul>
+                {% for port in result %}
+                    <li>Port {{ port }} is open</li>
+                {% endfor %}
+            </ul>
+        {% elif scan_type == 'subdomain' %}
+            <h5 class="text-success">✔ Subdomains Found:</h5>
+            <ul>
+                {% for item in result %}
+                    <li>{{ item.subdomain }} → {{ item.ip | join(', ') }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
     {% endif %}
 </div>
 
