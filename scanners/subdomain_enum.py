@@ -14,3 +14,4 @@ def enumerate_subdomains(domain):
             found.append({'subdomain': subdomain, 'ip': ips})
         except:
             continue
+    return found
